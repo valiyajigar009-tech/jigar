@@ -1,0 +1,314 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ----------------------------------------------------------------------------
+// SYSTEM & AUTH
+// ----------------------------------------------------------------------------
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  loginHistory LoginHistory[]
+  auditLogs    AuditLog[]
+}
+
+model LoginHistory {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ip        String?
+  userAgent String?
+  success   Boolean
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  details   String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+}
+
+model GlobalSettings {
+  id               Int      @id @default(1)
+  siteName         String   @default("My Portfolio")
+  siteDescription  String   @default("Welcome to my portfolio")
+  contactEmail     String   @default("admin@example.com")
+  contactPhone     String?
+  address          String?
+  logoUrl          String?
+  faviconUrl       String?
+  footerText       String?
+  copyright        String?
+  maintenanceMode  Boolean  @default(false)
+  announcementText String?
+  announcementLink String?
+  
+  // SEO
+  seoTitle         String?
+  seoDescription   String?
+  seoKeywords      String?
+  openGraphImage   String?
+  twitterCardImage String?
+  
+  // Socials
+  linkedin         String?
+  github           String?
+  twitter          String?
+  instagram        String?
+  facebook         String?
+  youtube          String?
+  behance          String?
+  dribbble         String?
+
+  updatedAt        DateTime @updatedAt
+}
+
+// ----------------------------------------------------------------------------
+// CONTENT MODELS (Singletons for Landing Page)
+// ----------------------------------------------------------------------------
+model HeroSection {
+  id              Int      @id @default(1)
+  headline        String   @default("Hello, I'm Jigar")
+  subheadline     String   @default("Creative UI/UX Designer")
+  typingTextList  String?  // JSON array
+  description     String?
+  heroImage       String?
+  bgImage         String?
+  bgVideo         String?
+  primaryCtaText  String   @default("View Work")
+  primaryCtaLink  String   @default("/#projects")
+  secondaryCtaText String   @default("Contact Me")
+  secondaryCtaLink String   @default("/#contact")
+  updatedAt       DateTime @updatedAt
+}
+
+model AboutSection {
+  id              Int      @id @default(1)
+  headline        String   @default("About Me")
+  shortBio        String?
+  longBio         String?
+  mission         String?
+  vision          String?
+  aboutImageUrl   String?
+  resumeUrl       String?
+  availability    String   @default("Available for freelance")
+  updatedAt       DateTime @updatedAt
+}
+
+// ----------------------------------------------------------------------------
+// PORTFOLIO ENTITIES
+// ----------------------------------------------------------------------------
+model Skill {
+  id          String   @id @default(cuid())
+  name        String
+  icon        String?
+  category    String   @default("Frontend")
+  proficiency Int      @default(80)
+  color       String?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Experience {
+  id             String    @id @default(cuid())
+  company        String
+  position       String
+  employmentType String    @default("Full-time")
+  startDate      DateTime
+  endDate        DateTime?
+  currentJob     Boolean   @default(false)
+  description    String?
+  companyLogo    String?
+  sortOrder      Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Education {
+  id                String    @id @default(cuid())
+  institution       String
+  degree            String
+  field             String?
+  grade             String?
+  startDate         DateTime
+  endDate           DateTime?
+  description       String?
+  certificateUpload String?
+  sortOrder         Int       @default(0)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Certification {
+  id               String    @id @default(cuid())
+  name             String
+  organization     String
+  issueDate        DateTime
+  expiryDate       DateTime?
+  credentialId     String?
+  credentialUrl    String?
+  certificateImage String?
+  sortOrder        Int       @default(0)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String?
+  features    String?  // JSON array
+  pricing     String?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  clientName  String
+  designation String?
+  company     String?
+  photo       String?
+  rating      Int      @default(5)
+  review      String
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  shortDescription String
+  fullDescription  String
+  thumbnail        String
+  category         String
+  status           String   @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  featured         Boolean  @default(false)
+  liveUrl          String?
+  githubUrl        String?
+  startDate        DateTime?
+  endDate          DateTime?
+  seoTitle         String?
+  seoDescription   String?
+  viewCount        Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  gallery          String?  // JSON array
+  techStack        String?  // JSON array
+}
+
+model BlogPost {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  content       String
+  excerpt       String?
+  featuredImage String?
+  status        String    @default("DRAFT") // DRAFT, PUBLISHED, SCHEDULED
+  publishedAt   DateTime?
+  seoTitle      String?
+  seoDescription String?
+  readingTime   Int?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  tags          String?  // JSON array
+  categories    String?  // JSON array
+}
+
+// ----------------------------------------------------------------------------
+// MEDIA LIBRARY
+// ----------------------------------------------------------------------------
+model MediaFolder {
+  id        String   @id @default(cuid())
+  name      String
+  parentId  String?
+  parent    MediaFolder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children  MediaFolder[] @relation("FolderHierarchy")
+  files     MediaFile[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaFile {
+  id           String       @id @default(cuid())
+  filename     String
+  originalName String
+  url          String
+  mimeType     String
+  size         Int
+  width        Int?
+  height       Int?
+  altText      String?
+  folderId     String?
+  folder       MediaFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+// ----------------------------------------------------------------------------
+// MESSAGES & CONTACTS
+// ----------------------------------------------------------------------------
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  isArchived Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// ANALYTICS
+// ----------------------------------------------------------------------------
+model VisitorAnalytics {
+  id          String   @id @default(cuid())
+  ipHash      String?  
+  country     String?
+  city        String?
+  device      String?
+  browser     String?
+  referer     String?
+  views       PageView[]
+  createdAt   DateTime @default(now())
+}
+
+model PageView {
+  id          String   @id @default(cuid())
+  path        String
+  duration    Int?     // seconds
+  visitorId   String?
+  visitor     VisitorAnalytics? @relation(fields: [visitorId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+}
+
+model Backup {
+  id          String   @id @default(cuid())
+  filename    String
+  path        String
+  size        Int
+  createdAt   DateTime @default(now())
+}

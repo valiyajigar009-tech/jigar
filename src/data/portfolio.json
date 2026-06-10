@@ -1,0 +1,149 @@
+{
+  "about": {
+    "name": "Jigar Valiya",
+    "headline": "Hello,\nI'm Jigar",
+    "bio": "I am an MCA student and passionate UI/UX Designer dedicated to crafting intuitive and visually stunning digital experiences. By bridging the gap between aesthetic design and functional development, I transform complex problems into seamless, user-centered solutions. I specialize in wireframing, prototyping, and modern interface design with a strong foundation in web technologies.",
+    "aboutImageUrl": "/about.jpg",
+    "skills": [
+      "Illustrator",
+      "Photoshop",
+      "InDesign",
+      "Figma",
+      "Frontend",
+      "Backend"
+    ],
+    "stats": [
+      {
+        "label": "Design Tool Proficiency",
+        "value": "95%"
+      },
+      {
+        "label": "Coffee Cups",
+        "value": "400+"
+      },
+      {
+        "label": "Pixel Perfection",
+        "value": "100%"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Creative UI/UX Designer",
+    "email": "valiyajigar009@gmail.com",
+    "phone": "+91 8200951722",
+    "location": "India",
+    "description": "Crafting digital experiences that merge clean aesthetics with thoughtful functionality.",
+    "imageUrl": "/portfolio.png",
+    "bgColor": "#0f172a",
+    "accentColor": "#38bdf8",
+    "grayscale": false,
+    "imageFit": "contain",
+    "imagePosition": "bottom",
+    "imageMask": false
+  },
+  "services": [
+    {
+      "id": "s1",
+      "title": "UI/UX Design",
+      "icon": "Layers",
+      "description": "Designing intuitive, user-centered interfaces and engaging experiences from wireframes to high-fidelity prototypes."
+    },
+    {
+      "id": "s2",
+      "title": "Graphic Design",
+      "icon": "PenTool",
+      "description": "Creating compelling visual graphics, striking branding, and customized illustrations that tell a story."
+    },
+    {
+      "id": "s3",
+      "title": "Web Development",
+      "icon": "Code2",
+      "description": "Building responsive, modern, and aesthetically pleasing web applications that bring ideas to life."
+    },
+    {
+      "id": "s4",
+      "title": "App Development",
+      "icon": "Code2",
+      "description": "Creating robust, high-performance mobile applications with seamless and intuitive user experiences."
+    }
+  ],
+  "workflow": [
+    {
+      "id": "w1",
+      "title": "Research & Strategy",
+      "description": "Understanding user needs, analyzing competitors, and defining a clear strategy before touching pixels or code."
+    },
+    {
+      "id": "w2",
+      "title": "UI/UX & Graphic Design",
+      "description": "Crafting intuitive interfaces, striking visual graphics, and interactive high-fidelity prototypes."
+    },
+    {
+      "id": "w3",
+      "title": "Web & App Development",
+      "description": "Building responsive full-stack web applications and robust, high-performance mobile experiences."
+    },
+    {
+      "id": "w4",
+      "title": "Testing & Deployment",
+      "description": "Ensuring pixel-perfect implementation, rigorous testing, and seamless launch of the final product."
+    }
+  ],
+  "resume": {
+    "experience": [
+      {
+        "id": "e1",
+        "role": "UI / UX and graphic designer",
+        "company": "vedhaan Technology",
+        "duration": "2026",
+        "description": "Developing conceptual designs, practicing modern UI trends, and creating comprehensive case studies to solve user problems."
+      },
+      {
+        "id": "e2",
+        "role": "graphic designer",
+        "company": "7 fox productions",
+        "duration": "2021-2022",
+        "description": "Creating compelling visual graphics, striking branding, and customized illustrations."
+      }
+    ],
+    "education": [
+      {
+        "id": "ed1",
+        "degree": "MCA",
+        "school": "gyanmanjari innovative university",
+        "duration": "2025 - 2027",
+        "description": "Specializing in software development, interaction design, and modern digital architectures."
+      },
+      {
+        "id": "ed2",
+        "degree": "BCA",
+        "school": "Shree Swaminarayan College Of Computer Science",
+        "duration": "2022 - 2025",
+        "description": "Built a strong foundation in computer science, web technologies, and database management."
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "p1",
+      "title": "Infinity Trips Website & App",
+      "category": "UI/UX Design",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      "link": "https://www.figma.com/proto/RqBJyk4ZVFKZwp6yW1qyVl/Infinity-Trips?node-id=650-7600&t=DMRZrsBnoIiEbK6j-1&scaling=min-zoom&content-scaling=fixed&page-id=631%3A5191&starting-point-node-id=650%3A7110"
+    },
+    {
+      "id": "p2",
+      "title": "Personal Portfolio Design",
+      "category": "UI/UX Design",
+      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      "link": "https://www.figma.com/proto/48o2BTA50B4uflScIstTzf/Portfolio?node-id=103-254&t=JpQiccP2M5WZF2sa-1&scaling=min-zoom&content-scaling=fixed&page-id=103%3A244&starting-point-node-id=103%3A254"
+    },
+    {
+      "id": "p3",
+      "title": "Shubh Vivah Design",
+      "category": "App Design",
+      "imageUrl": "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800&auto=format&fit=crop",
+      "link": "https://www.figma.com/proto/FrU6Fmq8SBHQKXkhvBUmkS/Shubh-Vivah?node-id=1-2&p=f&t=Sy2fUq9EIEWuO0kz-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1"
+    }
+  ]
+}

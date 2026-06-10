@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion/SKILL.md",
+      "computedHash": "d9457a606202a23c28b4c17b2611c65ecc09311ce46a5d93ffe8493d2e8ea4f3"
+    },
+    "spline-interactive": {
+      "source": "freshtechbro/claudedesignskills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/spline-interactive/SKILL.md",
+      "computedHash": "73c61d312b731d3e491cd635d19427767c80c4a1f4a9cc1cd18a3a530efa8aa6"
+    }
+  }
+}

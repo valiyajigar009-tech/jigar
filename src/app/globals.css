@@ -1,26 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --color-white: #ffffff;
+  --color-slate-800: #1a2f47;
+  --color-slate-900: #0a1420;
+  --color-slate-950: #050a10;
+  --color-indigo-400: #778da9;
+  --color-indigo-500: #778da9;
+  --color-indigo-600: #778da9;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #0d1b2a;
+  --foreground: #ffffff;
 }
 
 body {
+  font-family: var(--font-sans);
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Hide Spline Watermark and Next.js Dev Indicator */
+a[href*="spline.design"], 
+a[href*="splinetool.com"], 
+#spline-watermark,
+#spline-logo,
+.spline-watermark,
+.spline-wrapper a,
+nextjs-portal,
+#nextjs-build-indicator {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Text Stroke effect for outline letters */
+.text-stroke-white {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-stroke-dark {
+  -webkit-text-stroke: 1.5px rgba(13, 27, 42, 0.9);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Smooth scrolling setup */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom premium scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1b2a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a2f47;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #778da9;
+}
+
+/* Glassmorphism utility design */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-dark {
+  background: rgba(13, 27, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Smooth CSS Keyframe Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+/* Image blend gradient mask for minimalist dark landing page */
+.portrait-blend-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to right, var(--blend-color, #0d1b2a) 0%, transparent 25%, transparent 75%, var(--blend-color, #0d1b2a) 100%),
+              linear-gradient(to bottom, transparent 65%, var(--blend-color, #0d1b2a) 100%),
+              linear-gradient(to top, transparent 85%, var(--blend-color, #0d1b2a) 100%);
+}
+
+/* Soft edge Vignette Mask to blend image background borders smoothly */
+.portrait-masked {
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 72%);
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 72%);
 }
