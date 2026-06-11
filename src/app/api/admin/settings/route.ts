@@ -16,12 +16,13 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-    
+    const { id, ...updateData } = data; // Exclude id from update
+
     // Always upsert id: 1
     const settings = await prisma.globalSettings.upsert({
       where: { id: 1 },
-      update: data,
-      create: { id: 1, ...data }
+      update: updateData,
+      create: { id: 1, ...updateData }
     });
 
     return NextResponse.json({ success: true, settings });

@@ -16,8 +16,9 @@ export function SocialsForm({ initialData }: { initialData: any }) {
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsSaving(true);
     setMessage("");
 

@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -11,7 +11,7 @@ generator client {
 // SYSTEM & AUTH
 // ----------------------------------------------------------------------------
 model User {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id")
   email     String   @unique
   password  String
   name      String
@@ -24,9 +24,9 @@ model User {
 }
 
 model LoginHistory {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id")
   userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ip        String?
   userAgent String?
   success   Boolean
@@ -34,16 +34,16 @@ model LoginHistory {
 }
 
 model AuditLog {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id")
   action    String
   details   String
   userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   createdAt DateTime @default(now())
 }
 
 model GlobalSettings {
-  id               Int      @id @default(1)
+  id               Int      @id @default(1) @map("_id")
   siteName         String   @default("My Portfolio")
   siteDescription  String   @default("Welcome to my portfolio")
   contactEmail     String   @default("admin@example.com")
@@ -81,7 +81,7 @@ model GlobalSettings {
 // CONTENT MODELS (Singletons for Landing Page)
 // ----------------------------------------------------------------------------
 model HeroSection {
-  id              Int      @id @default(1)
+  id              Int      @id @default(1) @map("_id")
   headline        String   @default("Hello, I'm Jigar")
   subheadline     String   @default("Creative UI/UX Designer")
   typingTextList  String?  // JSON array
@@ -97,7 +97,7 @@ model HeroSection {
 }
 
 model AboutSection {
-  id              Int      @id @default(1)
+  id              Int      @id @default(1) @map("_id")
   headline        String   @default("About Me")
   shortBio        String?
   longBio         String?
@@ -113,7 +113,7 @@ model AboutSection {
 // PORTFOLIO ENTITIES
 // ----------------------------------------------------------------------------
 model Skill {
-  id          String   @id @default(cuid())
+  id          String   @id @default(cuid()) @map("_id")
   name        String
   icon        String?
   category    String   @default("Frontend")
@@ -125,7 +125,7 @@ model Skill {
 }
 
 model Experience {
-  id             String    @id @default(cuid())
+  id             String    @id @default(cuid()) @map("_id")
   company        String
   position       String
   employmentType String    @default("Full-time")
@@ -140,7 +140,7 @@ model Experience {
 }
 
 model Education {
-  id                String    @id @default(cuid())
+  id                String    @id @default(cuid()) @map("_id")
   institution       String
   degree            String
   field             String?
@@ -155,7 +155,7 @@ model Education {
 }
 
 model Certification {
-  id               String    @id @default(cuid())
+  id               String    @id @default(cuid()) @map("_id")
   name             String
   organization     String
   issueDate        DateTime
@@ -169,7 +169,7 @@ model Certification {
 }
 
 model Service {
-  id          String   @id @default(cuid())
+  id          String   @id @default(cuid()) @map("_id")
   title       String
   description String
   icon        String?
@@ -181,7 +181,7 @@ model Service {
 }
 
 model Testimonial {
-  id          String   @id @default(cuid())
+  id          String   @id @default(cuid()) @map("_id")
   clientName  String
   designation String?
   company     String?
@@ -195,7 +195,7 @@ model Testimonial {
 }
 
 model Project {
-  id               String   @id @default(cuid())
+  id               String   @id @default(cuid()) @map("_id")
   title            String
   slug             String   @unique
   shortDescription String
@@ -219,7 +219,7 @@ model Project {
 }
 
 model BlogPost {
-  id            String    @id @default(cuid())
+  id            String    @id @default(cuid()) @map("_id")
   title         String
   slug          String    @unique
   content       String
@@ -241,10 +241,10 @@ model BlogPost {
 // MEDIA LIBRARY
 // ----------------------------------------------------------------------------
 model MediaFolder {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id")
   name      String
   parentId  String?
-  parent    MediaFolder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  parent    MediaFolder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   children  MediaFolder[] @relation("FolderHierarchy")
   files     MediaFile[]
   createdAt DateTime @default(now())
@@ -252,7 +252,7 @@ model MediaFolder {
 }
 
 model MediaFile {
-  id           String       @id @default(cuid())
+  id           String       @id @default(cuid()) @map("_id")
   filename     String
   originalName String
   url          String
@@ -262,7 +262,7 @@ model MediaFile {
   height       Int?
   altText      String?
   folderId     String?
-  folder       MediaFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  folder       MediaFolder? @relation(fields: [folderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 }
@@ -271,7 +271,7 @@ model MediaFile {
 // MESSAGES & CONTACTS
 // ----------------------------------------------------------------------------
 model Message {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id")
   name      String
   email     String
   subject   String
@@ -285,7 +285,7 @@ model Message {
 // ANALYTICS
 // ----------------------------------------------------------------------------
 model VisitorAnalytics {
-  id          String   @id @default(cuid())
+  id          String   @id @default(cuid()) @map("_id")
   ipHash      String?  
   country     String?
   city        String?
@@ -297,16 +297,16 @@ model VisitorAnalytics {
 }
 
 model PageView {
-  id          String   @id @default(cuid())
+  id          String   @id @default(cuid()) @map("_id")
   path        String
   duration    Int?     // seconds
   visitorId   String?
-  visitor     VisitorAnalytics? @relation(fields: [visitorId], references: [id], onDelete: SetNull)
+  visitor     VisitorAnalytics? @relation(fields: [visitorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   createdAt   DateTime @default(now())
 }
 
 model Backup {
-  id          String   @id @default(cuid())
+  id          String   @id @default(cuid()) @map("_id")
   filename    String
   path        String
   size        Int

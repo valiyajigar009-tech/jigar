@@ -17,8 +17,9 @@ export function SettingsForm({ initialData }: { initialData: any }) {
     setFormData((prev: any) => ({ ...prev, [name]: val }));
   };
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsSaving(true);
     setMessage("");
 

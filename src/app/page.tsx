@@ -181,7 +181,7 @@ export default function PortfolioPage() {
   useEffect(() => {
     async function loadPortfolio() {
       try {
-        const res = await fetch("/api/portfolio");
+        const res = await fetch("/api/portfolio?t=" + new Date().getTime(), { cache: "no-store" });
         if (res.ok) {
           const configData = await res.json();
           setData(configData);
@@ -453,7 +453,6 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          {/* Right Column: 3D Spline Hero */}
           <div
             className="w-full md:w-1/2 h-[50vh] min-h-[400px] md:min-h-0 md:h-full relative flex items-center justify-center overflow-hidden [&_canvas]:!cursor-default cursor-default flex-shrink-0"
             onMouseEnter={() => setIsGridVisible(false)}
@@ -466,29 +465,46 @@ export default function PortfolioPage() {
               const x = (clientX - rect.left) / rect.width;
               const y = (clientY - rect.top) / rect.height;
 
+              // Give custom names or broad areas to fallback
+              // Broadened zones to make clicking easier for Services
               if (x > 0.5 && y > 0.5) {
-                // Bottom-Right (Heart button area) -> Contact Me
+                // Bottom-Right
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               } else if (x < 0.5 && y > 0.5) {
-                // Bottom-Left (Portfolio button area) -> My Work
+                // Bottom-Left
                 document.getElementById('project')?.scrollIntoView({ behavior: 'smooth' });
-              } else if (y <= 0.5) {
-                // Top Half
-                if (x < 0.35) {
-                  // Top-Left (Assuming Resume)
+              } else if (y <= 0.6) { // Expanded top half slightly
+                if (x < 0.3) {
+                  // Top-Left
                   document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-                } else if (x >= 0.35 && x < 0.65) {
-                  // Top-Middle (Assuming Services)
+                } else if (x >= 0.3 && x < 0.7) {
+                  // Top-Middle / Center (Services) - widened the clickable zone
                   document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
                 } else {
-                  // Top-Right (Assuming UI/UX)
-                  // Do nothing
+                  // Top-Right
+                  // Do nothing or map to something
                 }
               }
             }}
           >
-            <div className="spline-wrapper w-full h-full scale-[0.65] sm:scale-[1.15] md:scale-[1.3] -translate-y-4 sm:-translate-y-8 md:-translate-y-12 transition-transform duration-500 relative">
-              <Spline scene="https://prod.spline.design/c1piGarzYclIrSek/scene.splinecode" />
+            <div className="spline-wrapper w-full h-full scale-[0.65] sm:scale-[1.15] md:scale-[1.3] -translate-y-4 sm:-translate-y-8 md:-translate-y-12 transition-transform duration-500 relative pointer-events-auto">
+              <Spline 
+                scene="https://prod.spline.design/c1piGarzYclIrSek/scene.splinecode" 
+                onMouseDown={(e: any) => {
+                  try {
+                    const name = e.target?.name?.toLowerCase() || '';
+                    if (name.includes('service') || name.includes('what')) {
+                      document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (name.includes('about') || name.includes('resume')) {
+                      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (name.includes('project') || name.includes('portfolio') || name.includes('work')) {
+                      document.getElementById('project')?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (name.includes('contact')) {
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  } catch (err) {}
+                }}
+              />
             </div>
           </div>
         </div>

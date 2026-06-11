@@ -24,8 +24,9 @@ export function AccountForm({ initialData }: { initialData: { name: string; emai
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     
     if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
       setMessage({ text: "New passwords do not match", type: "error" });

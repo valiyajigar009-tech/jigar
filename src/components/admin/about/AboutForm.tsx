@@ -18,8 +18,9 @@ export function AboutForm({ initialData }: { initialData: any }) {
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsSaving(true);
     setMessage("");
 
@@ -44,6 +45,9 @@ export function AboutForm({ initialData }: { initialData: any }) {
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Prevent re-entry while an upload is already in progress
+    if (isUploading) return;
+
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -64,6 +68,8 @@ export function AboutForm({ initialData }: { initialData: any }) {
       console.error("Upload failed", error);
     } finally {
       setIsUploading(false);
+      // Clear the file input so the same file can be selected again and to avoid stale events
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -113,7 +119,7 @@ export function AboutForm({ initialData }: { initialData: any }) {
               <div className="flex gap-2">
                 <Input name="aboutImageUrl" value={formData.aboutImageUrl || ""} onChange={handleChange} className="flex-1" placeholder="/uploads/my-photo.jpg" />
                 <input type="file" ref={fileInputRef} onChange={handleImageUpload} accept="image/*" className="hidden" />
-                <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
+                <Button type="button" variant="outline" onClick={(e) => { e.preventDefault(); e.stopPropagation(); fileInputRef.current?.click(); }} disabled={isUploading}>
                   {isUploading ? "..." : <Upload size={16} />}
                 </Button>
               </div>
