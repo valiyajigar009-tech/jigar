@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db/prisma";
 import { SettingsForm } from "@/components/admin/settings/SettingsForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function SettingsPage() {
   let settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
   

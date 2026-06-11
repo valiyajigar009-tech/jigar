@@ -4,6 +4,8 @@ import { prisma } from "@/lib/db/prisma";
 import { AccountForm } from "@/components/admin/account/AccountForm";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function AccountPage() {
   const session = await getServerSession(authOptions);
   

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db/prisma";
 import Link from "next/link";
+export const dynamic = "force-dynamic";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/Button";
 

@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db/prisma";
 import { SocialsForm } from "@/components/admin/socials/SocialsForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function SocialsPage() {
   let settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
   

@@ -4,6 +4,8 @@ import { Input } from "@/components/admin/ui/Input";
 import { Button } from "@/components/admin/ui/Button";
 import { Save } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProfilePage() {
   // We'll fetch the admin user. In a real app we'd fetch based on session ID.
   const user = await prisma.user.findFirst({

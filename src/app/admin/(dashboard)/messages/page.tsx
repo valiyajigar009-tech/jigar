@@ -4,6 +4,8 @@ import { Button } from "@/components/admin/ui/Button";
 import { Input } from "@/components/admin/ui/Input";
 import { MessagesClient } from "@/components/admin/messages/MessagesClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function MessagesPage() {
   const messages = await prisma.message.findMany({
     orderBy: { createdAt: "desc" },

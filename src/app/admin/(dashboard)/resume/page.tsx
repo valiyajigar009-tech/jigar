@@ -3,6 +3,8 @@ import { Plus, Edit3, Briefcase, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/admin/ui/Button";
 
+export const dynamic = "force-dynamic";
+
 export default async function ResumePage() {
   const experiences = await prisma.experience.findMany({
     orderBy: { startDate: 'desc' }

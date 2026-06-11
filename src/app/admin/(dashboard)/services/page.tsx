@@ -3,6 +3,8 @@ import { Plus, Edit3, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/admin/ui/Button";
 
+export const dynamic = "force-dynamic";
+
 export default async function ServicesPage() {
   const services = await prisma.service.findMany({
     orderBy: { sortOrder: 'asc' }

@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db/prisma";
 import { AboutForm } from "@/components/admin/about/AboutForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function AboutPage() {
   try {
     let about = await prisma.aboutSection.findUnique({ where: { id: 1 } });
